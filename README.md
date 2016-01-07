@@ -13,6 +13,14 @@ The `ByteBuffer` structure
       0      <=      readerIndex   <=   writerIndex    <=    capacity
 ```
 
+Get Started
+===
+Install the latest version from NuGet (for .NET 3.5 and up)
+
+```
+Install-Package Yamool.Buffer`
+```
+
 Usage
 ===
 The `PooledBufferFactory` class implemented memory pool allocator.
