@@ -9,16 +9,31 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release-Net35|Any CPU = Release-Net35|Any CPU
+		Release-Net40|Any CPU = Release-Net40|Any CPU
+		Release-Net45|Any CPU = Release-Net45|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Release-Net35|Any CPU.ActiveCfg = Release-Net35|Any CPU
+		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Release-Net35|Any CPU.Build.0 = Release-Net35|Any CPU
+		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Release-Net40|Any CPU.ActiveCfg = Release-Net40|Any CPU
+		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Release-Net40|Any CPU.Build.0 = Release-Net40|Any CPU
+		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
+		{FACFE35D-7C0D-4F84-8C7B-9794930344E9}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
 		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Release-Net35|Any CPU.ActiveCfg = Release-Net35|Any CPU
+		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Release-Net35|Any CPU.Build.0 = Release-Net35|Any CPU
+		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Release-Net40|Any CPU.ActiveCfg = Release-Net40|Any CPU
+		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Release-Net40|Any CPU.Build.0 = Release-Net40|Any CPU
+		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Release-Net45|Any CPU.ActiveCfg = Release-Net45|Any CPU
+		{BBC7D45F-F0A2-4BF6-B6B6-6281F278C350}.Release-Net45|Any CPU.Build.0 = Release-Net45|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
