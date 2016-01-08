@@ -1,4 +1,4 @@
-Buffers
+Buffer
 ====
 The memory pool allocator for .NET to improvment application performance,it Inspired by Netty memory allocator.
 
@@ -18,7 +18,7 @@ Get Started
 Install the latest version from NuGet (for .NET 3.5 and up)
 
 ```
-Install-Package Yamool.Buffer`
+Install-Package Yamool.Buffer
 ```
 
 Usage
