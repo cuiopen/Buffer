@@ -8,7 +8,7 @@ namespace Yamool.Buffers
     /// <summary>
     /// The abstract class provides a random and sequential accessible sequence of zero or more bytes.
     /// </summary>
-    public abstract class ByteBuffer : ReferenceCounted, IEquatable<ByteBuffer>
+    public abstract partial class ByteBuffer : ReferenceCounted, IEquatable<ByteBuffer>
     {
         /// <summary>        
         /// Gets the underlying buffer of this buffer to exposed access.
@@ -126,14 +126,14 @@ namespace Yamool.Buffers
         /// <remarks>This method does not modify readerIndex or writerIndex of this buffer.</remarks>
         public abstract void GetBytes(int index, byte[] dst, int dstIndex, int length);
 
-        internal void InternalSetBytes(int index, byte[] src)
+        private void InternalSetBytes(int index, byte[] src)
         {
             var length = src.Length;
             this.CheckIndex(index, length);
             this.SetBytes(index, src, 0, length);
         }
 
-        internal byte[] InternalGetBytes(int index, int length)
+        private byte[] InternalGetBytes(int index, int length)
         {
             this.CheckIndex(index, length);
             var bytes = new byte[length];
@@ -282,12 +282,12 @@ namespace Yamool.Buffers
             return !a.Equals(b);
         }
 
-        internal protected void SetWriterIndex(int newIndex)
+        protected void SetWriterIndex(int newIndex)
         {
             this.SetIndex(this.ReaderIndex, newIndex);
         }
 
-        internal protected void SetReaderIndex(int newIndex)
+        protected void SetReaderIndex(int newIndex)
         {
             this.SetIndex(newIndex, this.WriterIndex);           
         }
@@ -309,7 +309,7 @@ namespace Yamool.Buffers
             }
         }
 
-        internal void EnsureWritable(int minWritableBytes)
+        private void EnsureWritable(int minWritableBytes)
         {
             this.EnsureAccessible();
             if (minWritableBytes < 0)

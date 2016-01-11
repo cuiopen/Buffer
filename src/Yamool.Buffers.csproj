@@ -80,10 +80,10 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ByteBuffer`.cs" />
     <Compile Include="PoolArena.cs" />
     <Compile Include="BufferStream.cs" />
     <Compile Include="ByteBuffer.cs" />
-    <Compile Include="ByteBufferExtensions.cs" />
     <Compile Include="PoolChunk.cs" />
     <Compile Include="IBufferFactory.cs" />
     <Compile Include="PoolPage.cs" />

@@ -6,18 +6,17 @@ namespace Yamool.Buffers
     using System;
     using System.Text;
 
-    public static class ByteBufferExtensions
+    public partial class ByteBuffer
     {      
         /// <summary>
         /// Gets a boolean value at the specified position index in the <see cref="ByteBuffer"/>. 
         /// </summary>
-        /// <param name="buffer">The byte buffer to get.</param>
         /// <param name="index">The position index of buffer which begin to read.</param>
         /// <returns>A boolean value.</returns>
         /// <remarks>This method does not modify the readerIndex or writerIndex of this buffer.</remarks>
-        public static bool GetBoolean(this ByteBuffer buffer, int index)
+        public bool GetBoolean(int index)
         {            
-            return GetByte(buffer, index) != 0;
+            return this.GetByte(index) != 0;
         }
 
         /// <summary>
@@ -27,34 +26,32 @@ namespace Yamool.Buffers
         /// <param name="index">The position index of buffer which begin to read.</param>
         /// <returns>A 8-bit unsigned integer.</returns>
         /// <remarks>This method does not modify readerIndex or writerIndex of this buffer.</remarks>
-        public static byte GetByte(this ByteBuffer buffer, int index)
+        public byte GetByte(int index)
         {
-            var bytes = buffer.InternalGetBytes(index, 1);
+            var bytes = this.InternalGetBytes(index, 1);
             return bytes[0];
         }
 
         /// <summary>
         /// Gets a Unicode character value at the specified absolute index in this buffer.         
         /// </summary>
-        /// <param name="buffer">The byte buffer to get.</param>
         /// <param name="index">The position index of buffer which begin to read.</param>
         /// <returns>The Unicode character value.</returns>
         /// <remarks>This method does not modify readerIndex or writerIndex of this buffer.</remarks>
-        public static char GetChar(this ByteBuffer buffer, int index)
+        public char GetChar(int index)
         {
-            return (char)GetShort(buffer, index);
+            return (char)GetShort(index);
         }
 
         /// <summary>
         /// Gets a 64-bit floating point number at the specified absolute index in this buffer. 
         /// </summary>
-        /// <param name="buffer">The byte buffer to get.</param>
         /// <param name="index">The position index of buffer which begin to read.</param>
         /// <returns>A 64-bit floating point number.</returns>
         /// <remarks>This method does not modify readerIndex or writerIndex of this buffer.</remarks>
-        public static double GetDouble(this ByteBuffer buffer, int index)
+        public double GetDouble(int index)
         {
-            var value = buffer.GetLong(index);
+            var value = this.GetLong(index);
             return BitConverter.Int64BitsToDouble(value);
         }
 
@@ -62,39 +59,36 @@ namespace Yamool.Buffers
         /// Gets a single-precision floating point number at the specified absolute index in this buffer. 
         /// This method does not modify readerIndex or writerIndex of this buffer.
         /// </summary>
-        /// <param name="buffer">The byte buffer to get.</param>
         /// <param name="index">The position index of buffer which begin to read.</param>
         /// <returns>A single-precision floating point number.</returns>
         /// <remarks>This method does not modify readerIndex or writerIndex of this buffer.</remarks>
-        public unsafe static float GetFloat(this ByteBuffer buffer, int index)
+        public unsafe float GetFloat(int index)
         {
-            var value = buffer.GetInt(index);
+            var value = this.GetInt(index);
             return *(float*)(&value);
         }
 
         /// <summary>
         /// Gets a 32-bit singed integer at the specified absolute index in this buffer.
         /// </summary>
-        /// <param name="buffer">The byte buffer to get.</param>
         /// <param name="index">The position index of buffer which begin to read.</param>
         /// <returns>A 32-bit signed integer.</returns>
         /// <remarks>This method does not modify readerIndex or writerIndex of this buffer.</remarks>
-        public static int GetInt(this ByteBuffer buffer, int index)
+        public int GetInt(int index)
         {
-            var bytes = buffer.InternalGetBytes(index, 4);
+            var bytes = this.InternalGetBytes(index, 4);
             return (bytes[0] & 0xff) << 24 | (bytes[1] & 0xff) << 16 | (bytes[2] & 0xff) << 8 | bytes[3] & 0xff;
         }
 
         /// <summary>
         /// Gets a 64-bit signed integer at the specified absolute index in this buffer.         
         /// </summary>
-        /// <param name="buffer">The byte buffer to get.</param>
         /// <param name="index">The position index of buffer which begin to read.</param>
         /// <returns>A 64-bit long integer </returns>
         /// <remarks>This method does not modify readerIndex or writerIndex of this buffer.</remarks>     
-        public static long GetLong(this ByteBuffer buffer, int index)
+        public long GetLong(int index)
         {
-            var bytes = buffer.InternalGetBytes(index, 8);
+            var bytes = this.InternalGetBytes(index, 8);
             return (long)((bytes[0] & 0xff)) << 56 |
                     (long)((bytes[1] & 0xff)) << 48 |
                     (long)((bytes[2] & 0xff)) << 40 |
@@ -108,13 +102,12 @@ namespace Yamool.Buffers
         /// <summary>
         /// Gets a 16-bit signed integer at the specified absolute index in this buffer.         
         /// </summary>
-        /// <param name="buffer">The byte buffer to get.</param>
         /// <param name="index">The position index of buffer which begin to read.</param>
         /// <returns>A 16-bit signed integer</returns>
         /// <remarks>This method does not modify readerIndex or writerIndex of this buffer.</remarks>
-        public static short GetShort(this ByteBuffer buffer, int index)
+        public short GetShort(int index)
         {
-            var bytes = buffer.InternalGetBytes(index, 2);
+            var bytes = this.InternalGetBytes(index, 2);
             return (short)((bytes[0] << 8 | bytes[1]) & 0xff);
         }
 
@@ -124,62 +117,57 @@ namespace Yamool.Buffers
         /// <param name="buffer">The byte buffer to set.</param>
         /// <param name="index">The position index within buffer begin to set.</param>
         /// <param name="value">The value to set.</param>
-        public static void SetBoolean(this ByteBuffer buffer, int index, bool value)
+        public void SetBoolean(int index, bool value)
         {            
-            buffer.SetByte(index, value ? (byte)1 : (byte)0);
+            this.SetByte(index, value ? (byte)1 : (byte)0);
         }
 
         /// <summary>
         /// Sets a byte value at specified absolute index of the buffer.
         /// </summary>
-        /// <param name="buffer">The byte buffer to set.</param>
         /// <param name="index">The position index within buffer begin to set.</param>
         /// <param name="value">The value to set.</param>
-        public static void SetByte(this ByteBuffer buffer, int index, byte value)
+        public void SetByte(int index, byte value)
         {
-            buffer.InternalSetBytes(index, new byte[] { value });
+            this.InternalSetBytes(index, new byte[] { value });
         }
 
         /// <summary>
         /// Sets a unicode character at the specified absolute index in this buffer.      
         /// </summary>
-        /// <param name="buffer">The byte buffer to set.</param>
         /// <param name="index">The position index within buffer begin to set.</param>
         /// <param name="value">The value to set.</param>
-        public static void SetChar(this ByteBuffer buffer, int index, char value)
+        public void SetChar(int index, char value)
         {
-            buffer.SetShort(index, (short)value);
+            this.SetShort(index, (short)value);
         }
 
         /// <summary>
         /// Sets a double-precision floating-point number at the specified absolute index in this buffer.      
         /// </summary>
-        /// <param name="buffer">The byte buffer to set.</param>
         /// <param name="index">The position index within buffer begin to set.</param>
         /// <param name="value">The value to set.</param>
-        public static void SetDouble(this ByteBuffer buffer, int index, double value)
+        public void SetDouble(int index, double value)
         {
-            buffer.SetLong(index, BitConverter.DoubleToInt64Bits(value));
+            this.SetLong(index, BitConverter.DoubleToInt64Bits(value));
         }
 
         /// <summary>
         /// Sets a single-precision floating-point number at the specified absolute index in this buffer.      
         /// </summary>
-        /// <param name="buffer">The byte buffer to set.</param>
         /// <param name="index">The position index within buffer begin to set.</param>
         /// <param name="value">The value to set.</param>
-        public unsafe static void SetFloat(this ByteBuffer buffer, int index, float value)
+        public unsafe void SetFloat(int index, float value)
         {
-            buffer.SetInt(index, *(int*)(&value));
+            this.SetInt(index, *(int*)(&value));
         }
 
         /// <summary>
         /// Sets a 64-bit signed integer at the specified absolute index in this buffer.      
         /// </summary>
-        /// <param name="buffer">The byte buffer to set.</param>
         /// <param name="index">The position index within buffer begin to set.</param>
         /// <param name="value">The value to set.</param>
-        public static void SetLong(this ByteBuffer buffer, int index, long value)
+        public void SetLong(int index, long value)
         {
             var bytes = new byte[8]{
                 (byte)(value>>56),
@@ -191,10 +179,10 @@ namespace Yamool.Buffers
                 (byte)(value>>8),
                 (byte)value
             };
-            buffer.InternalSetBytes(index, bytes);
+            this.InternalSetBytes(index, bytes);
         }
 
-        public static void SetInt(this ByteBuffer buffer, int index, int value)
+        public void SetInt(int index, int value)
         {
             var bytes = new byte[4]{
                 (byte)(value>>24),
@@ -202,46 +190,44 @@ namespace Yamool.Buffers
                 (byte)(value>>8),
                 (byte)value
             };
-            buffer.InternalSetBytes(index, bytes);
+            this.InternalSetBytes(index, bytes);
         }
 
         /// <summary>
         /// Sets a 16-bit singed integer at the specified absolute index in this buffer.      
         /// </summary>
-        /// <param name="buffer">The byte buffer to set.</param>
         /// <param name="index">The position index within buffer begin to set.</param>
         /// <param name="value">The value to set.</param>
-        public static void SetShort(this ByteBuffer buffer, int index, short value)
+        public void SetShort(int index, short value)
         {
             var bytes = new byte[2]{
                 (byte)(value >> 8),
                 (byte)value
             };
-            buffer.InternalSetBytes(index, bytes);
+            this.InternalSetBytes(index, bytes);
         }
 
         /// <summary>
         /// Gets a boolean value at the current readerIndex and increases the readerIndex by 1.
         /// </summary>
         /// <returns>A boolean value.</returns>
-        public static bool ReadBoolean(this ByteBuffer buffer)
+        public bool ReadBoolean()
         {
-            return buffer.ReadByte() != 0;
+            return this.ReadByte() != 0;
         }
 
         /// <summary>
         /// Gets a byte value at the current readerIndex and increases the readerIndex by 1.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <returns>A 16-bit unsigned integer.</returns>
-        public static byte ReadByte(this ByteBuffer buffer)
+        public byte ReadByte()
         {
-            if (buffer.ReadableBytes < 1)
+            if (this.ReadableBytes < 1)
             {
                 throw new InvalidOperationException("readerIndex has been reached writerIndex.");
             }
-            var value = buffer.GetByte(buffer.ReaderIndex);
-            buffer.SetReaderIndex(buffer.ReaderIndex + 1);
+            var value = this.GetByte(this.ReaderIndex);
+            this.SetReaderIndex(this.ReaderIndex + 1);
             return value;
         }
 
@@ -250,9 +236,9 @@ namespace Yamool.Buffers
         /// </summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        public static char ReadChar(this ByteBuffer buffer)
+        public char ReadChar()
         {
-            return (char)buffer.ReadShort();
+            return (char)this.ReadShort();
         }
 
         /// <summary>
@@ -260,156 +246,144 @@ namespace Yamool.Buffers
         /// </summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        public static double ReadDouble(this ByteBuffer buffer)
+        public double ReadDouble()
         {
-            return BitConverter.Int64BitsToDouble(buffer.ReadLong());
+            return BitConverter.Int64BitsToDouble(this.ReadLong());
         }
 
         /// <summary>
         /// Gets a 32-bit single precesion floating-pointer number at the current readerIndex and increases the readerIndex by 8.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <returns></returns>
-        public unsafe static float ReadFloat(this ByteBuffer buffer)
+        public unsafe float ReadFloat()
         {
-            var value = buffer.ReadInt();
+            var value = this.ReadInt();
             return *(float*)(&value);
         }
 
         /// <summary>
         /// Gets a 32-bit signed integer at the current readerIndex and increases the readerIndex by 4.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <returns></returns>
-        public static int ReadInt(this ByteBuffer buffer)
+        public int ReadInt()
         {
-            if (buffer.ReadableBytes < 4)
+            if (this.ReadableBytes < 4)
             {
                 throw new InvalidOperationException("readerIndex has been reached writerIndex.");
             }
-            var value = buffer.GetInt(buffer.ReaderIndex);
-            buffer.SetReaderIndex(buffer.ReaderIndex + 4);
+            var value = this.GetInt(this.ReaderIndex);
+            this.SetReaderIndex(this.ReaderIndex + 4);
             return value;
         }
 
         /// <summary>
         /// Gets a 64-bit signed integer at the current readerIndex and increases the readerIndex by 8.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <returns></returns>
-        public static long ReadLong(this ByteBuffer buffer)
+        public long ReadLong()
         {
-            if (buffer.ReadableBytes < 8)
+            if (this.ReadableBytes < 8)
             {
                 throw new InvalidOperationException("readerIndex has been reached writerIndex.");
             }
-            var value = buffer.GetLong(buffer.ReaderIndex);
-            buffer.SetReaderIndex(buffer.ReaderIndex + 8);
+            var value = this.GetLong(this.ReaderIndex);
+            this.SetReaderIndex(this.ReaderIndex + 8);
             return value;
         }
 
         /// <summary>
         /// Gets a 8-bit signed integer at the current readerIndex and increases the readerIndex by 2.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <returns></returns>
-        public static short ReadShort(this ByteBuffer buffer)
+        public short ReadShort()
         {
-            if (buffer.ReadableBytes < 2)
+            if (this.ReadableBytes < 2)
             {
                 throw new InvalidOperationException("readerIndex has been reached writerIndex.");
             }
-            var value = buffer.GetShort(buffer.ReaderIndex);
-            buffer.SetReaderIndex(buffer.ReaderIndex + 2);
+            var value = this.GetShort(this.ReaderIndex);
+            this.SetReaderIndex(this.ReaderIndex + 2);
             return value;
         }
 
         /// <summary>
         /// Write a boolean value at the current writerIndex and increases the writerIndex by 1.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <param name="value">The value to be write.</param>
-        public static void Write(this ByteBuffer buffer, bool value)
+        public void Write( bool value)
         {
-            buffer.Write(value ? (byte)1 : (byte)0);
+            this.Write(value ? (byte)1 : (byte)0);
         }
 
         /// <summary>
         /// Write a boolean value at the current writerIndex and increases the writerIndex by 1.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <param name="value"></param>
-        public static void Write(this ByteBuffer buffer, byte value)
+        public void Write(byte value)
         {
-            buffer.EnsureWritable(1);
-            buffer.SetByte(buffer.WriterIndex, value);
-            buffer.SetWriterIndex(buffer.WriterIndex + 1);
+            this.EnsureWritable(1);
+            this.SetByte(this.WriterIndex, value);
+            this.SetWriterIndex(this.WriterIndex + 1);
         }
 
         /// <summary>
         /// Write a 16-bit signed integer at the current writerIndex and increases the writerIndex by 2.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <param name="value"></param>
-        public static void Write(this ByteBuffer buffer, short value)
+        public void Write(short value)
         {
-            buffer.EnsureWritable(2);
-            buffer.SetShort(buffer.WriterIndex, value);
-            buffer.SetWriterIndex(buffer.WriterIndex + 2);
+            this.EnsureWritable(2);
+            this.SetShort(this.WriterIndex, value);
+            this.SetWriterIndex(this.WriterIndex + 2);
         }
 
         /// <summary>
         /// Write a unicode charater at the current writerIndex and increases the writerIndex by 2.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <param name="value"></param>
-        public static void Write(this ByteBuffer buffer, char value)
+        public void Write(char value)
         {
-            buffer.Write((short)value);
+            this.Write((short)value);
         }
 
         /// <summary>
         /// Write a 32-bit signed integer at the current writerIndex and increases the writerIndex by 4.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <param name="value"></param>
-        public static void Write(this ByteBuffer buffer, int value)
+        public void Write(int value)
         {
-            buffer.EnsureWritable(4);
-            buffer.SetInt(buffer.WriterIndex, value);
-            buffer.SetWriterIndex(buffer.WriterIndex + 4);
+            this.EnsureWritable(4);
+            this.SetInt(this.WriterIndex, value);
+            this.SetWriterIndex(this.WriterIndex + 4);
         }
 
         /// <summary>
         /// Write a 64-bit signed integer at the current writerIndex and increases the writerIndex by 8.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <param name="value"></param>
-        public static void Write(this ByteBuffer buffer, long value)
+        public void Write(long value)
         {
-            buffer.EnsureWritable(8);
-            buffer.SetLong(buffer.WriterIndex, value);
-            buffer.SetWriterIndex(buffer.WriterIndex + 8);
+            this.EnsureWritable(8);
+            this.SetLong(this.WriterIndex, value);
+            this.SetWriterIndex(this.WriterIndex + 8);
         }
 
         /// <summary>
         /// Write a double-precision floating number at the current writerIndex and increases the writerIndex by 8.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <param name="value"></param>
-        public static void Write(this ByteBuffer buffer, double value)
+        public void Write(double value)
         {
-            buffer.Write(BitConverter.DoubleToInt64Bits(value));
+            this.Write(BitConverter.DoubleToInt64Bits(value));
         }
 
         /// <summary>
         /// Write a single precision floating number at the current writerIndex and increases the writerIndex by 4.
         /// </summary>
-        /// <param name="buffer"></param>
         /// <param name="value"></param>
-        public unsafe static void Write(this ByteBuffer buffer, float value)
+        public unsafe void Write(float value)
         {
-            buffer.Write(*(int*)(&value));
+            this.Write(*(int*)(&value));
         }
     }
 }
