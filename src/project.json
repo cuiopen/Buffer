@@ -1,0 +1,17 @@
+﻿{
+  "version": "1.0.0",
+  "description":"A memory pool allocator library for .NET to improve application performance.",  
+  "compilationOptions": {
+    "allowUnsafe": true
+  },
+  "frameworks": {
+    "net451": { },
+    "dnxcore50": {
+      "dependencies": {
+        "System.Threading": "4.0.10",
+        "System.Runtime.Extensions": "4.0.0-*",
+        "System.IO": "4.0.0-*"
+      }
+    }
+  }
+}

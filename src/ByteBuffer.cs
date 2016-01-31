@@ -344,7 +344,7 @@ namespace Yamool.Buffers
     /// <summary>
     /// The exception that is thrown when an attempts to access a reference count is ZERO of the ByteBuffer object.
     /// </summary>
-    public sealed class BufferAccessException : SystemException
+    public sealed class BufferAccessException : Exception
     {       
     }
 }
